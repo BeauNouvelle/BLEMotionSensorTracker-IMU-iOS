@@ -7,18 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B8E8EE627D8923F0002CECE /* BTMicrobit+UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EE227D8923F0002CECE /* BTMicrobit+UUID.swift */; };
+		8B8E8EE727D8923F0002CECE /* BTPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EE327D8923F0002CECE /* BTPeripheral.swift */; };
+		8B8E8EE827D8923F0002CECE /* BTMicrobit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EE427D8923F0002CECE /* BTMicrobit.swift */; };
+		8B8E8EEA27D8924F0002CECE /* BTMicrobit+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EE927D8924F0002CECE /* BTMicrobit+Event.swift */; };
+		8B8E8EEC27D89C380002CECE /* Array+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EEB27D89C380002CECE /* Array+extensions.swift */; };
+		8B8E8EEE27D89C470002CECE /* Data+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EED27D89C470002CECE /* Data+extensions.swift */; };
+		8B8E8EF027D89FEA0002CECE /* MicrobitImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EEF27D89FEA0002CECE /* MicrobitImage.swift */; };
+		8B8E8EF227D8A0400002CECE /* ThreeAxisValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EF127D8A0400002CECE /* ThreeAxisValues.swift */; };
+		8B8E8EF427D8A12C0002CECE /* Unit+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EF327D8A12C0002CECE /* Unit+extensions.swift */; };
+		8B8E8EF627D8A2160002CECE /* String+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EF527D8A2160002CECE /* String+extensions.swift */; };
+		8B8E8EF927D8DD7B0002CECE /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8E8EF827D8DD7B0002CECE /* LineView.swift */; };
+		8B8E8EFF27D8E26B0002CECE /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */; };
 		8BA6937827D59B3500F2F781 /* MovementTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6937727D59B3500F2F781 /* MovementTrackerApp.swift */; };
 		8BA6937A27D59B3500F2F781 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6937927D59B3500F2F781 /* ContentView.swift */; };
 		8BA6937C27D59B3600F2F781 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA6937B27D59B3600F2F781 /* Assets.xcassets */; };
 		8BA6937F27D59B3600F2F781 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA6937E27D59B3600F2F781 /* Preview Assets.xcassets */; };
+		8BA6938727D59C2300F2F781 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6938627D59C2300F2F781 /* BluetoothManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B8E8EE227D8923F0002CECE /* BTMicrobit+UUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BTMicrobit+UUID.swift"; sourceTree = "<group>"; };
+		8B8E8EE327D8923F0002CECE /* BTPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheral.swift; sourceTree = "<group>"; };
+		8B8E8EE427D8923F0002CECE /* BTMicrobit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTMicrobit.swift; sourceTree = "<group>"; };
+		8B8E8EE927D8924F0002CECE /* BTMicrobit+Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BTMicrobit+Event.swift"; sourceTree = "<group>"; };
+		8B8E8EEB27D89C380002CECE /* Array+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+extensions.swift"; sourceTree = "<group>"; };
+		8B8E8EED27D89C470002CECE /* Data+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+extensions.swift"; sourceTree = "<group>"; };
+		8B8E8EEF27D89FEA0002CECE /* MicrobitImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrobitImage.swift; sourceTree = "<group>"; };
+		8B8E8EF127D8A0400002CECE /* ThreeAxisValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeAxisValues.swift; sourceTree = "<group>"; };
+		8B8E8EF327D8A12C0002CECE /* Unit+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Unit+extensions.swift"; sourceTree = "<group>"; };
+		8B8E8EF527D8A2160002CECE /* String+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+extensions.swift"; sourceTree = "<group>"; };
+		8B8E8EF727D8D4B00002CECE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8B8E8EF827D8DD7B0002CECE /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		8BA6937427D59B3500F2F781 /* MovementTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovementTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA6937727D59B3500F2F781 /* MovementTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementTrackerApp.swift; sourceTree = "<group>"; };
 		8BA6937927D59B3500F2F781 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8BA6937B27D59B3600F2F781 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BA6937E27D59B3600F2F781 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8BA6938627D59C2300F2F781 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,12 +52,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B8E8EFF27D8E26B0002CECE /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B8E8EE027D892390002CECE /* microbit */ = {
+			isa = PBXGroup;
+			children = (
+				8B8E8EEF27D89FEA0002CECE /* MicrobitImage.swift */,
+				8B8E8EE927D8924F0002CECE /* BTMicrobit+Event.swift */,
+				8B8E8EE427D8923F0002CECE /* BTMicrobit.swift */,
+				8B8E8EE227D8923F0002CECE /* BTMicrobit+UUID.swift */,
+				8B8E8EE327D8923F0002CECE /* BTPeripheral.swift */,
+				8B8E8EEB27D89C380002CECE /* Array+extensions.swift */,
+				8B8E8EED27D89C470002CECE /* Data+extensions.swift */,
+				8B8E8EF127D8A0400002CECE /* ThreeAxisValues.swift */,
+				8B8E8EF327D8A12C0002CECE /* Unit+extensions.swift */,
+				8B8E8EF527D8A2160002CECE /* String+extensions.swift */,
+			);
+			path = microbit;
+			sourceTree = "<group>";
+		};
 		8BA6936B27D59B3500F2F781 = {
 			isa = PBXGroup;
 			children = (
@@ -51,10 +95,14 @@
 		8BA6937627D59B3500F2F781 /* MovementTracker */ = {
 			isa = PBXGroup;
 			children = (
+				8B8E8EF727D8D4B00002CECE /* Info.plist */,
+				8B8E8EE027D892390002CECE /* microbit */,
+				8BA6938527D59C1300F2F781 /* model */,
 				8BA6937727D59B3500F2F781 /* MovementTrackerApp.swift */,
 				8BA6937927D59B3500F2F781 /* ContentView.swift */,
 				8BA6937B27D59B3600F2F781 /* Assets.xcassets */,
 				8BA6937D27D59B3600F2F781 /* Preview Content */,
+				8B8E8EF827D8DD7B0002CECE /* LineView.swift */,
 			);
 			path = MovementTracker;
 			sourceTree = "<group>";
@@ -65,6 +113,14 @@
 				8BA6937E27D59B3600F2F781 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8BA6938527D59C1300F2F781 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				8BA6938627D59C2300F2F781 /* BluetoothManager.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +139,9 @@
 			dependencies = (
 			);
 			name = MovementTracker;
+			packageProductDependencies = (
+				8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */,
+			);
 			productName = MovementTracker;
 			productReference = 8BA6937427D59B3500F2F781 /* MovementTracker.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +170,9 @@
 				Base,
 			);
 			mainGroup = 8BA6936B27D59B3500F2F781;
+			packageReferences = (
+				8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
+			);
 			productRefGroup = 8BA6937527D59B3500F2F781 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +199,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B8E8EE627D8923F0002CECE /* BTMicrobit+UUID.swift in Sources */,
+				8B8E8EEA27D8924F0002CECE /* BTMicrobit+Event.swift in Sources */,
+				8B8E8EE827D8923F0002CECE /* BTMicrobit.swift in Sources */,
+				8B8E8EF627D8A2160002CECE /* String+extensions.swift in Sources */,
+				8B8E8EF227D8A0400002CECE /* ThreeAxisValues.swift in Sources */,
+				8BA6938727D59C2300F2F781 /* BluetoothManager.swift in Sources */,
+				8B8E8EF027D89FEA0002CECE /* MicrobitImage.swift in Sources */,
+				8B8E8EEE27D89C470002CECE /* Data+extensions.swift in Sources */,
 				8BA6937A27D59B3500F2F781 /* ContentView.swift in Sources */,
 				8BA6937827D59B3500F2F781 /* MovementTrackerApp.swift in Sources */,
+				8B8E8EE727D8923F0002CECE /* BTPeripheral.swift in Sources */,
+				8B8E8EEC27D89C380002CECE /* Array+extensions.swift in Sources */,
+				8B8E8EF927D8DD7B0002CECE /* LineView.swift in Sources */,
+				8B8E8EF427D8A12C0002CECE /* Unit+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,11 +344,14 @@
 				DEVELOPMENT_TEAM = 2VA9RUV2PN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovementTracker/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Let it work or else!!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,11 +376,14 @@
 				DEVELOPMENT_TEAM = 2VA9RUV2PN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovementTracker/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Let it work or else!!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +419,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/willdale/SwiftUICharts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8BA6936C27D59B3500F2F781 /* Project object */;
 }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftUICharts",
+        "repositoryURL": "https://github.com/willdale/SwiftUICharts.git",
+        "state": {
+          "branch": null,
+          "revision": "6ba7163599e26a8292a77e8be5c4ddcbfbdc5c70",
+          "version": "2.9.7"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
