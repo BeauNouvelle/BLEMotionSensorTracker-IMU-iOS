@@ -9,44 +9,7 @@ import Foundation
 import CoreBluetooth
 import Combine
 import SwiftUI
-
-enum Status: String {
-    case searching
-    case connecting
-    case connected
-    case disconnected
-    case error
-
-    var image: Image {
-        switch self {
-            case .searching:
-                return Image(systemName: "hand.raised")
-            case .connecting:
-                return Image(systemName: "hand.raised.fill")
-            case .connected:
-                return Image(systemName: "hand.thumbsup.fill")
-            case .disconnected:
-                return Image(systemName: "hand.raised.slash")
-            case .error:
-                return Image(systemName: "hand.thumbsdown")
-        }
-    }
-
-    var color: Color {
-        switch self {
-            case .searching:
-                return .primary
-            case .connecting:
-                return .teal
-            case .connected:
-                return .green
-            case .disconnected:
-                return .orange
-            case .error:
-                return .red
-        }
-    }
-}
+import CodableCSV
 
 final class BluetoothManager: NSObject, ObservableObject {
 
@@ -63,14 +26,16 @@ final class BluetoothManager: NSObject, ObservableObject {
 
     var potentialPeripherals: [CBPeripheral] = []
 
-    @Published var leftConnected: Status = .searching
-    @Published var rightConnected: Status = .searching
+    @Published var leftConnected: BluetoothStatus = .searching
+    @Published var rightConnected: BluetoothStatus = .searching
 
-    private var leftAccelData: [AccelerometerData] = []
-    private var leftMagData: [AccelerometerData] = []
+    private var leftAccelData: [PositionData] = []
+    private var leftGyroData: [PositionData] = []
+    private var leftMagData: [PositionData] = []
 
-    private var rightAccelData: [AccelerometerData] = []
-    private var rightMagData: [AccelerometerData] = []
+    private var rightAccelData: [PositionData] = []
+    private var rightMagData: [PositionData] = []
+    private var rightGyroData: [PositionData] = []
 
     @Published var lAccelX: [Double] = []
     @Published var lAccelY: [Double] = []
@@ -88,12 +53,64 @@ final class BluetoothManager: NSObject, ObservableObject {
     @Published var rMagY: [Double] = []
     @Published var rMagZ: [Double] = []
 
-    let capLength = 40
+    let capLength = 30
 
     private override init() { super.init() }
 
     func start() {
         self.centralManager = CBCentralManager(delegate: self, queue: .main)
+    }
+
+    func capture(_ cap: CaptureType) {
+        guard cap != .clear else {
+            clearStream()
+            return
+        }
+
+        let snapshot = snapshot(cap: cap)
+        clearStream()
+
+        let csvEncoder = CSVEncoder { $0.headers = SnapshotRow.CodingsKeys.allCases.map { $0.rawValue } }
+        do {
+            let csvData = try csvEncoder.encode(snapshot.rows)
+            SaveManager.save(csv: csvData, type: cap)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
+    func snapshot(cap: CaptureType) -> Snapshot {
+        let snapshot = Snapshot(leftAccData: leftAccelData,
+                                leftMagData: leftMagData,
+                                leftGyroData: leftGyroData,
+                                rightAccData: rightAccelData,
+                                rightMagData: rightMagData,
+                                rightGyroData: rightGyroData,
+                                type: cap)
+        return snapshot
+    }
+
+    func clearStream() {
+        leftAccelData.removeAll()
+        leftMagData.removeAll()
+        rightAccelData.removeAll()
+        rightMagData.removeAll()
+
+        lAccelZ.removeAll()
+        lAccelX.removeAll()
+        lAccelY.removeAll()
+
+        lMagZ.removeAll()
+        lMagX.removeAll()
+        lMagY.removeAll()
+
+        rAccelZ.removeAll()
+        rAccelX.removeAll()
+        rAccelY.removeAll()
+
+        rMagZ.removeAll()
+        rMagX.removeAll()
+        rMagY.removeAll()
     }
 
 }
@@ -214,9 +231,9 @@ extension BluetoothManager: CBPeripheralDelegate {
             case .accelerometerDataUUID:
                 let dataBytes = characteristic.value!
                 let accelerometerData = dataBytes.withUnsafeBytes {
-                    AccelerometerData(x: Int16(littleEndian: $0[0]),
-                                      y: Int16(littleEndian: $0[1]),
-                                      z: Int16(littleEndian: $0[2]))
+                    PositionData(x: Int16(littleEndian: $0[0]),
+                                 y: Int16(littleEndian: $0[1]),
+                                 z: Int16(littleEndian: $0[2]))
                 }
                 if peripheral.identifier == leftID {
                     leftAccelData.append(accelerometerData)
@@ -252,10 +269,10 @@ extension BluetoothManager: CBPeripheralDelegate {
 
             case .magnetometerDataUUID:
                 let dataBytes = characteristic.value!
-                let magnetometerData = dataBytes.withUnsafeBytes {(int16Ptr: UnsafePointer<Int16>)-> AccelerometerData in
-                    AccelerometerData(x: Int16(littleEndian: int16Ptr[0]),
-                                     y: Int16(littleEndian: int16Ptr[1]),
-                                     z: Int16(littleEndian: int16Ptr[2]))
+                let magnetometerData = dataBytes.withUnsafeBytes {(int16Ptr: UnsafePointer<Int16>)-> PositionData in
+                    PositionData(x: Int16(littleEndian: int16Ptr[0]),
+                                 y: Int16(littleEndian: int16Ptr[1]),
+                                 z: Int16(littleEndian: int16Ptr[2]))
                 }
                 if peripheral.identifier == leftID {
                     leftMagData.append(magnetometerData)
@@ -294,11 +311,4 @@ extension BluetoothManager: CBPeripheralDelegate {
 
 
     }
-}
-
-
-struct AccelerometerData {
-    let x: Int16
-    let y: Int16
-    let z: Int16
 }
