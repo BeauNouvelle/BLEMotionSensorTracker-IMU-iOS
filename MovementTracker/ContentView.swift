@@ -18,63 +18,113 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+
+            HStack {
+                Button {
+                    showOverlay.toggle()
+                } label: {
+                    Text("Saves")
+                }
+                .buttonStyle(.bordered)
+                Spacer()
+                HandView(status: viewModel.leftConnected, name: "LEFT")
+                HandView(status: viewModel.rightConnected, name: "RIGHT")
+            }
+            .padding(.horizontal)
+
+            HStack {
+                MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
+                    .init(dataPoints: viewModel.lAccelX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
+                    .init(dataPoints: viewModel.lAccelY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
+                    .init(dataPoints: viewModel.lAccelZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal)))
+                ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
+
+                MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
+                    .init(dataPoints: viewModel.rAccelX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
+                    .init(dataPoints: viewModel.rAccelY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
+                    .init(dataPoints: viewModel.rAccelZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal)))
+                ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
+            }
+            .opacity(showOverlay ? 0 : 1)
+
+            HStack {
+                MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
+                    .init(dataPoints: viewModel.lMagX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
+                    .init(dataPoints: viewModel.lMagY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
+                    .init(dataPoints: viewModel.lMagZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal))),
+                ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
+
+                MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
+                    .init(dataPoints: viewModel.rMagX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
+                    .init(dataPoints: viewModel.rMagY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
+                    .init(dataPoints: viewModel.rMagZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal))),
+                ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
+            }
+            .opacity(showOverlay ? 0 : 1)
+
+            Text("Punches")
+            LazyVGrid(columns: [gridItem, gridItem]) {
+                ForEach(CaptureType.punches) { cap in
+                    Button {
+                        viewModel.capture(cap)
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text(cap.rawValue)
+                            Spacer()
+                        }
+                        .foregroundColor(cap == .clear ? .red : .primary)
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            .padding(.horizontal)
+
+            Text("Defense")
+            LazyVGrid(columns: [gridItem, gridItem]) {
+                ForEach(CaptureType.defense) { cap in
+                    Button {
+                        viewModel.capture(cap)
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text(cap.rawValue)
+                            Spacer()
+                        }
+                        .foregroundColor(cap == .clear ? .red : .primary)
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            .padding(.horizontal)
+
+            Text("Combos")
+            LazyVGrid(columns: [gridItem, gridItem]) {
+                ForEach(CaptureType.combos) { cap in
+                    Button {
+                        viewModel.capture(cap)
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text(cap.rawValue)
+                            Spacer()
+                        }
+                        .foregroundColor(cap == .clear ? .red : .primary)
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            .padding(.horizontal)
+
             Button {
-                showOverlay.toggle()
+                viewModel.capture(.clear)
             } label: {
-                Text("Saves")
+                Spacer()
+                Text("Clear")
+                Spacer()
             }
             .buttonStyle(.bordered)
-
-            if !showOverlay {
-                HStack {
-                    HandView(status: viewModel.leftConnected, name: "LEFT")
-                    HandView(status: viewModel.rightConnected, name: "RIGHT")
-                }
-
-                HStack {
-                    MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
-                        .init(dataPoints: viewModel.lAccelX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
-                        .init(dataPoints: viewModel.lAccelY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
-                        .init(dataPoints: viewModel.lAccelZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal)))
-                    ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
-
-                    MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
-                        .init(dataPoints: viewModel.rAccelX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
-                        .init(dataPoints: viewModel.rAccelY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
-                        .init(dataPoints: viewModel.rAccelZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal)))
-                    ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
-                }
-                HStack {
-                    MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
-                        .init(dataPoints: viewModel.lMagX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
-                        .init(dataPoints: viewModel.lMagY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
-                        .init(dataPoints: viewModel.lMagZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal))),
-                    ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
-
-                    MultiLineChart(chartData: MultiLineChartData(dataSets: MultiLineDataSet(dataSets: [
-                        .init(dataPoints: viewModel.rMagX.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .green))),
-                        .init(dataPoints: viewModel.rMagY.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .red))),
-                        .init(dataPoints: viewModel.rMagZ.map { .init(value: $0) }, style: .init(lineColour: ColourStyle.init(colour: .teal))),
-                    ]), chartStyle: .init(globalAnimation: .linear(duration: 0))))
-                }
-
-                LazyVGrid(columns: [gridItem, gridItem]) {
-                    ForEach(CaptureType.allCases) { cap in
-                        Button {
-                            viewModel.capture(cap)
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Text(cap.rawValue)
-                                Spacer()
-                            }
-                            .foregroundColor(cap == .clear ? .red : .primary)
-                        }
-                        .buttonStyle(.bordered)
-                    }
-                }
-                .padding()
-            }
+            .padding(.horizontal)
 
         }
         .onAppear {

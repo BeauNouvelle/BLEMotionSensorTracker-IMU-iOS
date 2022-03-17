@@ -213,14 +213,14 @@ extension BluetoothManager: CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         for service in peripheral.services ?? [] {
-            print(service.uuid)
+            let serviceID = BTMicrobit.ServiceUUID(rawValue: service.uuid.uuidString)
+            print(serviceID?.description)
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for chara in service.characteristics ?? [] {
-            print(chara.uuid)
             peripheral.setNotifyValue(true, for: chara)
         }
     }
@@ -305,10 +305,26 @@ extension BluetoothManager: CBPeripheralDelegate {
                         rMagZ.removeFirst()
                     }
                 }
+            case .pinPWMControlUUID:
+                print("CONTROL")
+                let dataBytes = characteristic.value!
+                print(dataBytes)
+            case .pinADConfigurationUUID:
+                print("AD")
+                let dataBytes = characteristic.value!
+                print(dataBytes)
+            case .pinIOConfigurationUUID:
+                print("IO")
+                let dataBytes = characteristic.value!
+                print(dataBytes)
+            case .pinDataUUID:
+                print("DATA")
+                let dataBytes = characteristic.value!
+                print(dataBytes)
             default:
-                break
+                let dataBytes = characteristic.value!
+                print(dataBytes)
         }
-
 
     }
 }
