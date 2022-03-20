@@ -15,9 +15,18 @@ enum CaptureType: String, Identifiable {
     case leadHook
     case rearHook
     case clear
+    case lowJabCross
+    case lowLeftRight
+
+    case lowJab
+    case lowCross
+
+    case lowLeft
+    case lowRight
 
     case roll
     case slip
+    case stance
 
     case oneTwo // jab cross
     case oneOneTwo // jab jab cross
@@ -32,11 +41,11 @@ enum CaptureType: String, Identifiable {
     }
 
     static var punches: [CaptureType] {
-        return [.jab, .cross, .leadUppercut, .rearUppercut, .leadHook, .rearHook]
+        return [.jab, .cross, .leadUppercut, .rearUppercut, .leadHook, .rearHook, .lowJab, .lowCross, .lowLeft, .lowRight, .lowJabCross, .lowLeftRight]
     }
 
     static var defense: [CaptureType] {
-        return [.roll, .slip]
+        return [.roll, .slip, .stance]
     }
 
     static var combos: [CaptureType] {

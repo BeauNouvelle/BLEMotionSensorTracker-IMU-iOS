@@ -98,23 +98,23 @@ struct ContentView: View {
             }
             .padding(.horizontal)
 
-            Text("Combos")
-            LazyVGrid(columns: [gridItem, gridItem]) {
-                ForEach(CaptureType.combos) { cap in
-                    Button {
-                        viewModel.capture(cap)
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text(cap.rawValue)
-                            Spacer()
-                        }
-                        .foregroundColor(cap == .clear ? .red : .primary)
-                    }
-                    .buttonStyle(.bordered)
-                }
-            }
-            .padding(.horizontal)
+//            Text("Combos")
+//            LazyVGrid(columns: [gridItem, gridItem]) {
+//                ForEach(CaptureType.combos) { cap in
+//                    Button {
+//                        viewModel.capture(cap)
+//                    } label: {
+//                        HStack {
+//                            Spacer()
+//                            Text(cap.rawValue)
+//                            Spacer()
+//                        }
+//                        .foregroundColor(cap == .clear ? .red : .primary)
+//                    }
+//                    .buttonStyle(.bordered)
+//                }
+//            }
+//            .padding(.horizontal)
 
             Button {
                 viewModel.capture(.clear)
