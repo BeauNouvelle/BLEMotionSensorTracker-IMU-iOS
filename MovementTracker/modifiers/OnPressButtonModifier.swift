@@ -24,6 +24,9 @@ struct PressActions: ViewModifier {
                         }
                     })
             )
+            .simultaneousGesture(LongPressGesture(minimumDuration: 0).onEnded({ _ in
+                enabled = true
+            }))
     }
 }
 

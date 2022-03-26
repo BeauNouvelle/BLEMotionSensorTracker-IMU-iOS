@@ -13,6 +13,7 @@ struct ContentView: View {
 
     @StateObject private var viewModel = BluetoothManager.shared
     @State var showOverlay: Bool = false
+    @State var showVisuals: Bool = false
 
     var body: some View {
         VStack {
@@ -26,22 +27,27 @@ struct ContentView: View {
                 Spacer()
                 HandView(status: viewModel.leftConnected, name: "LEFT")
                 HandView(status: viewModel.rightConnected, name: "RIGHT")
+                Button(showVisuals ? "Hide V" : "Show V") {
+                    showVisuals.toggle()
+                }
             }
             .padding(.horizontal)
 
-            if viewModel.isRecording {
-                PopoverView(viewModel: viewModel)
-            } else {
-                HStack {
-                    MeasurementView(data: viewModel.latestLeftReading)
-                    MeasurementView(data: viewModel.latestRightReading)
+            if showVisuals {
+                if viewModel.isRecording {
+                    PopoverView(viewModel: viewModel)
+                } else {
+                    HStack {
+                        MeasurementView(data: viewModel.latestLeftReading)
+                        MeasurementView(data: viewModel.latestRightReading)
+                    }
+                    .padding()
                 }
-                .padding()
             }
 
             CaptureTypesView(title: "Punches", types: CaptureType.punches)
             CaptureTypesView(title: "Defense", types: CaptureType.defense)
-//            CaptureTypesView(title: "Combos", types: CaptureType.combos)
+            CaptureTypesView(title: "Combos", types: CaptureType.combos)
         }
         .onAppear {
             viewModel.start()
