@@ -8,28 +8,21 @@
 import Foundation
 
 struct SnapshotRow: Codable {
-    let leftAccX: Int16?
-    let leftAccY: Int16?
-    let leftAccZ: Int16?
-    let leftGyroX: Int16?
-    let leftGyroY: Int16?
-    let leftGyroZ: Int16?
-    let leftMagX: Int16?
-    let leftMagY: Int16?
-    let leftMagZ: Int16?
+    let leftAccX: Double?
+    let leftAccY: Double?
+    let leftAccZ: Double?
+    let leftGyroX: Double?
+    let leftGyroY: Double?
+    let leftGyroZ: Double?
 
-    let rightAccX: Int16?
-    let rightAccY: Int16?
-    let rightAccZ: Int16?
-    let rightGyroX: Int16?
-    let rightGyroY: Int16?
-    let rightGyroZ: Int16?
-    let rightMagX: Int16?
-    let rightMagY: Int16?
-    let rightMagZ: Int16?
+    let rightAccX: Double?
+    let rightAccY: Double?
+    let rightAccZ: Double?
+    let rightGyroX: Double?
+    let rightGyroY: Double?
+    let rightGyroZ: Double?
 
     let type: String
-    let date: String
 
     enum CodingsKeys: String, CodingKey, CaseIterable {
         case leftAccX
@@ -38,9 +31,6 @@ struct SnapshotRow: Codable {
         case leftGyroX
         case leftGyroY
         case leftGyroZ
-        case leftMagX
-        case leftMagY
-        case leftMagZ
 
         case rightAccX
         case rightAccY
@@ -48,56 +38,45 @@ struct SnapshotRow: Codable {
         case rightGyroX
         case rightGyroY
         case rightGyroZ
-        case rightMagX
-        case rightMagY
-        case rightMagZ
 
-        case type, date
+        case type
     }
-}
 
-extension Collection {
-    /// Returns the element at the specified index if it is within bounds, otherwise nil.
-    subscript (safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
+    init(left: MotionData, right: MotionData, type: String) {
+        self.leftAccX = left.a.x
+        self.leftAccY = left.a.y
+        self.leftAccZ = left.a.z
+
+        self.leftGyroX = left.g.x
+        self.leftGyroY = left.g.y
+        self.leftGyroZ = left.g.z
+
+        self.rightAccX = right.a.x
+        self.rightAccY = right.a.y
+        self.rightAccZ = right.a.z
+
+        self.rightGyroX = right.g.x
+        self.rightGyroY = right.g.y
+        self.rightGyroZ = right.g.z
+
+        self.type = type
     }
+
 }
 
 struct Snapshot: Codable {
 
     let rows: [SnapshotRow]
 
-    init(leftAccData: [PositionData], leftMagData: [PositionData], leftGyroData: [PositionData],
-         rightAccData: [PositionData], rightMagData: [PositionData], rightGyroData: [PositionData], type: CaptureType) {
-
-        let maxCount = max(leftAccData.count, leftMagData.count, leftGyroData.count, rightAccData.count, rightMagData.count, rightGyroData.count)
-        let date = Date.now.description
-
+    init(leftMotionData: [MotionData], rightMotionData: [MotionData], type: CaptureType) {
+        let minCount = min(leftMotionData.count, rightMotionData.count)
         var rows = [SnapshotRow]()
 
-        for index in 0..<maxCount {
-            rows.append(
-                SnapshotRow(leftAccX: leftAccData[safe: index]?.x,
-                            leftAccY: leftAccData[safe: index]?.y,
-                            leftAccZ: leftAccData[safe: index]?.z,
-                            leftGyroX: leftGyroData[safe: index]?.x,
-                            leftGyroY: leftGyroData[safe: index]?.y,
-                            leftGyroZ: leftGyroData[safe: index]?.z,
-                            leftMagX: leftMagData[safe: index]?.x,
-                            leftMagY: leftMagData[safe: index]?.y,
-                            leftMagZ: leftMagData[safe: index]?.z,
-                            rightAccX: rightAccData[safe: index]?.x,
-                            rightAccY: rightAccData[safe: index]?.y,
-                            rightAccZ: rightAccData[safe: index]?.z,
-                            rightGyroX: rightGyroData[safe: index]?.x,
-                            rightGyroY: rightGyroData[safe: index]?.y,
-                            rightGyroZ: rightGyroData[safe: index]?.z,
-                            rightMagX: rightMagData[safe: index]?.x,
-                            rightMagY: rightMagData[safe: index]?.y,
-                            rightMagZ: rightMagData[safe: index]?.z,
-                            type: type.rawValue,
-                            date: date)
-            )
+        for index in 0..<minCount {
+            let left = leftMotionData[index]
+            let right = rightMotionData[index]
+            let row = SnapshotRow(left: left, right: right, type: type.rawValue)
+            rows.append(row)
         }
         self.rows = rows
     }

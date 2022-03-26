@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct PositionData {
-    let x: Int16
-    let y: Int16
-    let z: Int16
+struct MotionData: Codable {
+    let a: PositionData
+    let g: PositionData
+
+    struct PositionData: Codable {
+        let x: Double
+        let y: Double
+        let z: Double
+    }
 }

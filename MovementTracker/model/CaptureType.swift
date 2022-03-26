@@ -14,7 +14,6 @@ enum CaptureType: String, Identifiable {
     case rearUppercut
     case leadHook
     case rearHook
-    case clear
     case lowJabCross
     case lowLeftRight
 

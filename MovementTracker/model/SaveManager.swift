@@ -40,6 +40,12 @@ struct SaveManager {
         }
     }
 
+    static func deleteAll() {
+        for folder in folders() {
+            try? FileManager.default.removeItem(at: folder)
+        }
+    }
+
     static func save(csv: Data, type: CaptureType) {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let csvDir = docDir.appendingPathComponent("csv")
