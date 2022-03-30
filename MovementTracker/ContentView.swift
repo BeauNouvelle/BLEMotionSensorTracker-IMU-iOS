@@ -14,6 +14,8 @@ struct ContentView: View {
     @StateObject private var viewModel = BluetoothManager.shared
     @State var showOverlay: Bool = false
     @State var showVisuals: Bool = false
+    @State var seconds: Int = 0
+    @State var number: Int = 0
 
     var body: some View {
         VStack {
@@ -34,20 +36,21 @@ struct ContentView: View {
             .padding(.horizontal)
 
             if showVisuals {
-                if viewModel.isRecording {
-                    PopoverView(viewModel: viewModel)
-                } else {
-                    HStack {
-                        MeasurementView(data: viewModel.latestLeftReading)
-                        MeasurementView(data: viewModel.latestRightReading)
-                    }
-                    .padding()
+                HStack {
+                    MeasurementView(data: viewModel.latestLeftReading)
+                    MeasurementView(data: viewModel.latestRightReading)
                 }
+                .padding()
+            }
+
+            HStack {
+                Text("\(seconds)")
+                Text("COUNT: \(number)")
             }
 
             CaptureTypesView(title: "Punches", types: CaptureType.punches)
-            CaptureTypesView(title: "Defense", types: CaptureType.defense)
-            CaptureTypesView(title: "Combos", types: CaptureType.combos)
+//            CaptureTypesView(title: "Defense", types: CaptureType.defense)
+//            CaptureTypesView(title: "Combos", types: CaptureType.combos)
         }
         .onAppear {
             viewModel.start()
@@ -57,7 +60,21 @@ struct ContentView: View {
         } content: {
             FolderView()
         }
-
+        .onReceive(viewModel.timer) { _ in
+            if viewModel.trackingData {
+                viewModel.saveRecording()
+                viewModel.startRecording()
+                number += 1
+            } else {
+                number = 0
+            }
+        }
+        .onReceive(viewModel.countdown) { date in
+            if seconds == 4 {
+                seconds = 0
+            }
+            seconds += 1
+        }
     }
 }
 

@@ -16,18 +16,19 @@ struct CaptureTypesView: View {
     let types: [CaptureType]
     let gridItem = GridItem(.flexible(minimum: 50, maximum: 200), spacing: 8)
 
+    @State var running: Bool = false
+
     var body: some View {
         VStack {
             Text(title)
             LazyVGrid(columns: [gridItem, gridItem]) {
                 ForEach(types) { cap in
                     Button(cap.rawValue) {
-                        viewModel.stopAndSaveRecording(for: cap)
+                        viewModel.captureType = cap
+                        viewModel.trackingData.toggle()
                     }
                     .buttonStyle(.borderedProminent)
-                    .pressAction {
-                        viewModel.startRecording()
-                    }
+                    .tint(viewModel.trackingData && viewModel.captureType == cap ? .red : .blue)
                 }
             }
             .padding(.horizontal)

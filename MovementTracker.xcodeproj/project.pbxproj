@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8B87AB4D27EEC1C500BA8613 /* OnPressButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B87AB4C27EEC1C500BA8613 /* OnPressButtonModifier.swift */; };
 		8B8E8EFF27D8E26B0002CECE /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */; };
-		8B904B9127DB0A2100DD60D3 /* CodableCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 8B904B9027DB0A2100DD60D3 /* CodableCSV */; };
 		8B904B9327DB0A3500DD60D3 /* PositionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B904B9227DB0A3500DD60D3 /* PositionData.swift */; };
 		8B904B9527DB110600DD60D3 /* CaptureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B904B9427DB110600DD60D3 /* CaptureType.swift */; };
 		8B904B9727DB116300DD60D3 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B904B9627DB116300DD60D3 /* Snapshot.swift */; };
@@ -57,7 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B904B9127DB0A2100DD60D3 /* CodableCSV in Frameworks */,
 				8B8E8EFF27D8E26B0002CECE /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,7 +155,6 @@
 			name = MovementTracker;
 			packageProductDependencies = (
 				8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */,
-				8B904B9027DB0A2100DD60D3 /* CodableCSV */,
 			);
 			productName = MovementTracker;
 			productReference = 8BA6937427D59B3500F2F781 /* MovementTracker.app */;
@@ -189,7 +186,6 @@
 			mainGroup = 8BA6936B27D59B3500F2F781;
 			packageReferences = (
 				8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
-				8B904B8F27DB0A2100DD60D3 /* XCRemoteSwiftPackageReference "CodableCSV" */,
 			);
 			productRefGroup = 8BA6937527D59B3500F2F781 /* Products */;
 			projectDirPath = "";
@@ -449,14 +445,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		8B904B8F27DB0A2100DD60D3 /* XCRemoteSwiftPackageReference "CodableCSV" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/dehesa/CodableCSV";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.7;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -464,11 +452,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
-		};
-		8B904B9027DB0A2100DD60D3 /* CodableCSV */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8B904B8F27DB0A2100DD60D3 /* XCRemoteSwiftPackageReference "CodableCSV" */;
-			productName = CodableCSV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

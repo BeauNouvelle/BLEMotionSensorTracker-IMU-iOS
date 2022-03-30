@@ -9,7 +9,6 @@ import Foundation
 import CoreBluetooth
 import Combine
 import SwiftUI
-import CodableCSV
 import SwiftUICharts
 
 final class BluetoothManager: NSObject, ObservableObject {
@@ -28,7 +27,6 @@ final class BluetoothManager: NSObject, ObservableObject {
 
     @Published var leftConnected: BluetoothStatus = .searching
     @Published var rightConnected: BluetoothStatus = .searching
-    @Published var isRecording = false
 
     private var leftMotionDataCache: [MotionData] = []
     private var rightMotionDataCache: [MotionData] = []
@@ -36,8 +34,14 @@ final class BluetoothManager: NSObject, ObservableObject {
     var leftChartData: [(ax: LineChartDataPoint, ay: LineChartDataPoint, az: LineChartDataPoint, gx: LineChartDataPoint, gy: LineChartDataPoint, gz: LineChartDataPoint)] = []
     var rightChartData: [(ax: LineChartDataPoint, ay: LineChartDataPoint, az: LineChartDataPoint, gx: LineChartDataPoint, gy: LineChartDataPoint, gz: LineChartDataPoint)] = []
 
-    @Published var latestLeftReading: MotionData = .init(a: .init(x: 0, y: 0, z: 0), g: .init(x: 0, y: 0, z: 0))
-    @Published var latestRightReading: MotionData = .init(a: .init(x: 0, y: 0, z: 0), g: .init(x: 0, y: 0, z: 0))
+    @Published var latestLeftReading: MotionData = .init(a: .init(), g: .init())
+    @Published var latestRightReading: MotionData = .init(a: .init(), g: .init())
+
+    @Published var trackingData = false
+    @Published var captureType: CaptureType = .jab
+
+    let countdown = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
 
     private override init() { super.init() }
 
@@ -45,25 +49,24 @@ final class BluetoothManager: NSObject, ObservableObject {
         self.centralManager = CBCentralManager(delegate: self, queue: .main)
     }
 
-    private func capture(_ cap: CaptureType) {
-        let snapshot = snapshot(cap: cap)
-        let csvEncoder = CSVEncoder { $0.headers = SnapshotRow.CodingsKeys.allCases.map { $0.rawValue } }
+    private func capture() {
+        let snapshot = snapshot(cap: captureType)
         do {
-            let csvData = try csvEncoder.encode(snapshot.rows)
-            SaveManager.save(csv: csvData, type: cap)
+            let jsonData = try JSONEncoder().encode(snapshot.rows)
+            SaveManager.save(json: jsonData, type: captureType)
         } catch {
             print(error.localizedDescription)
         }
-    }
+    } 
 
     private func snapshot(cap: CaptureType) -> Snapshot {
 
         if leftPeripheral == nil {
-            leftMotionDataCache = Array(repeating: MotionData(a: .init(x: 0, y: 0, z: 0), g: .init(x: 0, y: 0, z: 0)), count: rightMotionDataCache.count)
+            leftMotionDataCache = Array(repeating: MotionData(a: .init(), g: .init()), count: rightMotionDataCache.count)
         }
 
         if rightPeripheral == nil {
-            rightMotionDataCache = Array(repeating: MotionData(a: .init(x: 0, y: 0, z: 0), g: .init(x: 0, y: 0, z: 0)), count: leftMotionDataCache.count)
+            rightMotionDataCache = Array(repeating: MotionData(a: .init(), g: .init()), count: leftMotionDataCache.count)
         }
 
         let snapshot = Snapshot(
@@ -75,12 +78,14 @@ final class BluetoothManager: NSObject, ObservableObject {
 
     func startRecording() {
         clearStream()
-        isRecording = true
     }
 
-    func stopAndSaveRecording(for capType: CaptureType) {
-        capture(capType)
-        isRecording = false
+    func saveRecording() {
+        guard !leftMotionDataCache.isEmpty && !rightMotionDataCache.isEmpty else {
+            return
+        }
+        capture()
+        clearStream()
     }
 
     func clearStream() {
@@ -200,7 +205,7 @@ extension BluetoothManager: CBPeripheralDelegate {
                 if peripheral == leftPeripheral {
                     latestLeftReading = motionData
 
-                    if isRecording {
+                    if trackingData {
                         leftMotionDataCache.append(motionData)
                         leftChartData.append(motionData.chartData())
                         if leftChartData.count > 30 {
@@ -210,7 +215,7 @@ extension BluetoothManager: CBPeripheralDelegate {
                 } else if peripheral == rightPeripheral {
                     latestRightReading = motionData
 
-                    if isRecording {
+                    if trackingData {
                         rightMotionDataCache.append(motionData)
                         rightChartData.append(motionData.chartData())
                         if rightChartData.count > 30 {

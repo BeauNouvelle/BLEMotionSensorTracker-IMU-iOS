@@ -20,7 +20,7 @@ struct SaveManager {
     static func folders() -> [URL] {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
-        let csvDir = documentsDirectory.appendingPathComponent("csv")
+        let csvDir = documentsDirectory.appendingPathComponent("json")
         do {
             let items = try FileManager.default.contentsOfDirectory(at: csvDir, includingPropertiesForKeys: [.isDirectoryKey], options: .skipsHiddenFiles)
             return items
@@ -46,11 +46,11 @@ struct SaveManager {
         }
     }
 
-    static func save(csv: Data, type: CaptureType) {
+    static func save(json: Data, type: CaptureType) {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let csvDir = docDir.appendingPathComponent("csv")
+        let csvDir = docDir.appendingPathComponent("json")
         let saveFolder = csvDir.appendingPathComponent(type.rawValue)
-        let saveLocation = saveFolder.appendingPathComponent(Date.now.description).appendingPathExtension("csv")
+        let saveLocation = saveFolder.appendingPathComponent(Date.now.description+type.rawValue).appendingPathExtension("json")
 
         if !FileManager.default.fileExists(atPath: saveFolder.path) {
             do {
@@ -61,7 +61,7 @@ struct SaveManager {
         }
 
         do {
-            try csv.write(to: saveLocation)
+            try json.write(to: saveLocation)
         } catch {
             print(error.localizedDescription)
         }
