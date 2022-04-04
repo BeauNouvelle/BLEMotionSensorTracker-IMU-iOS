@@ -48,9 +48,12 @@ struct ContentView: View {
                 Text("COUNT: \(number)")
             }
 
-            CaptureTypesView(title: "Punches", types: CaptureType.punches)
-//            CaptureTypesView(title: "Defense", types: CaptureType.defense)
-//            CaptureTypesView(title: "Combos", types: CaptureType.combos)
+            ScrollView {
+                CaptureTypesView(title: "Punches", types: CaptureType.punches)
+                CaptureTypesView(title: "Defense", types: CaptureType.defense)
+                CaptureTypesView(title: "Combos", types: CaptureType.combos)
+            }
+
         }
         .onAppear {
             viewModel.start()

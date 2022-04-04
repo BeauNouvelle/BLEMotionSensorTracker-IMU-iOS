@@ -57,7 +57,7 @@ final class BluetoothManager: NSObject, ObservableObject {
         } catch {
             print(error.localizedDescription)
         }
-    } 
+    }
 
     private func snapshot(cap: CaptureType) -> Snapshot {
 

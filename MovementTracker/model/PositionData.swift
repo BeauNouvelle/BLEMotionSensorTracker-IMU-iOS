@@ -16,17 +16,6 @@ struct MotionData: Codable {
         let y: Double
         let z: Double
 
-        enum CodingKeys: CodingKey {
-            case x, y, z
-        }
-
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            x = try container.decode(Double.self, forKey: .x) / 100
-            y = try container.decode(Double.self, forKey: .y) / 100
-            z = try container.decode(Double.self, forKey: .z) / 100
-        }
-
         init() {
             x = 0
             y = 0
