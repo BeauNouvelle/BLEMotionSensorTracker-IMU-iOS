@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreBluetooth
-import SwiftUICharts
 
 struct ContentView: View {
 
@@ -73,7 +72,7 @@ struct ContentView: View {
             }
         }
         .onReceive(viewModel.countdown) { date in
-            if seconds == 4 {
+            if seconds == 10 {
                 seconds = 0
             }
             seconds += 1

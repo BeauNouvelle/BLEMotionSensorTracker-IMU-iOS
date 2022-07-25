@@ -13,13 +13,13 @@ struct MeasurementView: View {
 
     var body: some View {
         VStack {
-            MeasurementRow(title: "aX", data: data.a.x)
-            MeasurementRow(title: "aY", data: data.a.y)
-            MeasurementRow(title: "aZ", data: data.a.z)
-
-            MeasurementRow(title: "gX", data: data.g.x)
-            MeasurementRow(title: "gY", data: data.g.y)
-            MeasurementRow(title: "gZ", data: data.g.z)
+            MeasurementRow(title: "aX", data: data.ax)
+            MeasurementRow(title: "aY", data: data.ay)
+            MeasurementRow(title: "aZ", data: data.az)
+            
+            MeasurementRow(title: "gX", data: data.gx)
+            MeasurementRow(title: "gY", data: data.gy)
+            MeasurementRow(title: "gZ", data: data.gz)
         }
     }
 

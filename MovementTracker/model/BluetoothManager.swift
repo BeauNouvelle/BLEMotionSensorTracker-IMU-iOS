@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 import Combine
 import SwiftUI
-import SwiftUICharts
+import OSLog
 
 final class BluetoothManager: NSObject, ObservableObject {
 
@@ -21,7 +21,7 @@ final class BluetoothManager: NSObject, ObservableObject {
     var rightPeripheral: CBPeripheral?
 
     // APP ONLY works with these devices.
-    static let S_SERVICE_UUID =  CBUUID(string: "e58919dd-8e27-4a31-8675-af7c16034cb9".uppercased())
+    static let S_SERVICE_UUID =  CBUUID(string: "e58919dd-8e27-4a31-8675-af7c16034cb9")
     static let M_CHARACTERISTIC_UUID =  CBUUID(string: "343a4a81-51bc-4aec-93a7-b344107064c1")
     static let T_CHARACTERISTIC_UUID =  CBUUID(string: "23f75411-dec3-420c-84d8-889a370fee79")
 
@@ -31,17 +31,16 @@ final class BluetoothManager: NSObject, ObservableObject {
     private var leftMotionDataCache: [MotionData] = []
     private var rightMotionDataCache: [MotionData] = []
 
-    var leftChartData: [(ax: LineChartDataPoint, ay: LineChartDataPoint, az: LineChartDataPoint, gx: LineChartDataPoint, gy: LineChartDataPoint, gz: LineChartDataPoint)] = []
-    var rightChartData: [(ax: LineChartDataPoint, ay: LineChartDataPoint, az: LineChartDataPoint, gx: LineChartDataPoint, gy: LineChartDataPoint, gz: LineChartDataPoint)] = []
-
-    @Published var latestLeftReading: MotionData = .init(a: .init(), g: .init())
-    @Published var latestRightReading: MotionData = .init(a: .init(), g: .init())
+    @Published var latestLeftReading = MotionData()
+    @Published var latestRightReading = MotionData()
 
     @Published var trackingData = false
     @Published var captureType: CaptureType = .jab
 
+    let formatter = ISO8601DateFormatter()
+
     let countdown = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
 
     private override init() { super.init() }
 
@@ -51,28 +50,33 @@ final class BluetoothManager: NSObject, ObservableObject {
 
     private func capture() {
         let snapshot = snapshot(cap: captureType)
-        do {
-            let jsonData = try JSONEncoder().encode(snapshot.rows)
-            SaveManager.save(json: jsonData, type: captureType)
-        } catch {
-            print(error.localizedDescription)
+
+        var csvString = ""
+        let sessionId = formatter.string(from: .now)
+        for item in snapshot.rows {
+            let dataString = "\(item.type),\(item.leftAccX),\(item.leftAccY),\(item.leftAccZ),\(item.leftGyroX),\(item.leftGyroY),\(item.leftGyroZ),\(item.rightAccX),\(item.rightAccY),\(item.rightAccZ),\(item.rightGyroX),\(item.rightGyroY),\(item.rightGyroZ),\(sessionId)\n"
+            csvString = csvString.appending(dataString)
         }
+
+        let data = csvString.data(using: .utf8)
+        SaveManager.save(data: data!, sessionId: sessionId, type: captureType)
     }
 
     private func snapshot(cap: CaptureType) -> Snapshot {
 
         if leftPeripheral == nil {
-            leftMotionDataCache = Array(repeating: MotionData(a: .init(), g: .init()), count: rightMotionDataCache.count)
+            leftMotionDataCache = Array(repeating: MotionData(), count: rightMotionDataCache.count)
         }
 
         if rightPeripheral == nil {
-            rightMotionDataCache = Array(repeating: MotionData(a: .init(), g: .init()), count: leftMotionDataCache.count)
+            rightMotionDataCache = Array(repeating: MotionData(), count: leftMotionDataCache.count)
         }
 
         let snapshot = Snapshot(
             leftMotionData: leftMotionDataCache,
             rightMotionData: rightMotionDataCache,
             type: cap)
+        
         return snapshot
     }
 
@@ -198,31 +202,24 @@ extension BluetoothManager: CBPeripheralDelegate {
     }
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+
         if characteristic.uuid == BluetoothManager.M_CHARACTERISTIC_UUID {
-            guard let data = characteristic.value else { return }
+            guard let data = characteristic.value else {
+                return
+            }
             do {
                 let motionData = try JSONDecoder().decode(MotionData.self, from: data)
                 if peripheral == leftPeripheral {
                     latestLeftReading = motionData
-
                     if trackingData {
                         leftMotionDataCache.append(motionData)
-                        leftChartData.append(motionData.chartData())
-                        if leftChartData.count > 30 {
-                            leftChartData.removeFirst()
-                        }
                     }
                 } else if peripheral == rightPeripheral {
                     latestRightReading = motionData
 
                     if trackingData {
                         rightMotionDataCache.append(motionData)
-                        rightChartData.append(motionData.chartData())
-                        if rightChartData.count > 30 {
-                            rightChartData.removeFirst()
-                        }
                     }
-
                 } else {
                     print("WTF. Where did this come from?")
                 }
@@ -236,3 +233,4 @@ extension BluetoothManager: CBPeripheralDelegate {
         }
     }
 }
+

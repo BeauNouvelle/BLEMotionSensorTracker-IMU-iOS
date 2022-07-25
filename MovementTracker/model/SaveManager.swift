@@ -46,11 +46,11 @@ struct SaveManager {
         }
     }
 
-    static func save(json: Data, type: CaptureType) {
+    static func save(data: Data, sessionId: String, type: CaptureType) {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let csvDir = docDir.appendingPathComponent("json")
+        let csvDir = docDir.appendingPathComponent("csv")
         let saveFolder = csvDir.appendingPathComponent(type.rawValue)
-        let saveLocation = saveFolder.appendingPathComponent(Date.now.description+type.rawValue).appendingPathExtension("json")
+        let saveLocation = saveFolder.appendingPathComponent(sessionId+type.rawValue).appendingPathExtension("csv")
 
         if !FileManager.default.fileExists(atPath: saveFolder.path) {
             do {
@@ -61,7 +61,7 @@ struct SaveManager {
         }
 
         do {
-            try json.write(to: saveLocation)
+            try data.write(to: saveLocation)
         } catch {
             print(error.localizedDescription)
         }

@@ -8,19 +8,19 @@
 import Foundation
 
 struct SnapshotRow: Codable {
-    let leftAccX: Double?
-    let leftAccY: Double?
-    let leftAccZ: Double?
-    let leftGyroX: Double?
-    let leftGyroY: Double?
-    let leftGyroZ: Double?
+    let leftAccX: Double
+    let leftAccY: Double
+    let leftAccZ: Double
+    let leftGyroX: Double
+    let leftGyroY: Double
+    let leftGyroZ: Double
 
-    let rightAccX: Double?
-    let rightAccY: Double?
-    let rightAccZ: Double?
-    let rightGyroX: Double?
-    let rightGyroY: Double?
-    let rightGyroZ: Double?
+    let rightAccX: Double
+    let rightAccY: Double
+    let rightAccZ: Double
+    let rightGyroX: Double
+    let rightGyroY: Double
+    let rightGyroZ: Double
 
     let type: String
 
@@ -43,21 +43,21 @@ struct SnapshotRow: Codable {
     }
 
     init(left: MotionData, right: MotionData, type: String) {
-        self.leftAccX = left.a.x
-        self.leftAccY = left.a.y
-        self.leftAccZ = left.a.z
+        self.leftAccX = left.ax
+        self.leftAccY = left.ay
+        self.leftAccZ = left.az
 
-        self.leftGyroX = left.g.x
-        self.leftGyroY = left.g.y
-        self.leftGyroZ = left.g.z
+        self.leftGyroX = left.gx
+        self.leftGyroY = left.gy
+        self.leftGyroZ = left.gz
 
-        self.rightAccX = right.a.x
-        self.rightAccY = right.a.y
-        self.rightAccZ = right.a.z
+        self.rightAccX = right.ax
+        self.rightAccY = right.ay
+        self.rightAccZ = right.az
 
-        self.rightGyroX = right.g.x
-        self.rightGyroY = right.g.y
-        self.rightGyroZ = right.g.z
+        self.rightGyroX = right.gx
+        self.rightGyroY = right.gy
+        self.rightGyroZ = right.gz
 
         self.type = type
     }

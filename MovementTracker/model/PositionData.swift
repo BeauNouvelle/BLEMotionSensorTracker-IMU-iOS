@@ -8,19 +8,20 @@
 import Foundation
 
 struct MotionData: Codable {
-    let a: PositionData
-    let g: PositionData
+    let ax: Double
+    let ay: Double
+    let az: Double
+    let gx: Double
+    let gy: Double
+    let gz: Double
 
-    struct PositionData: Codable {
-        let x: Double
-        let y: Double
-        let z: Double
-
-        init() {
-            x = 0
-            y = 0
-            z = 0
-        }
+    init() {
+        self.ax = 0
+        self.ay = 0
+        self.az = 0
+        self.gx = 0
+        self.gy = 0
+        self.gz = 0
     }
 }
 

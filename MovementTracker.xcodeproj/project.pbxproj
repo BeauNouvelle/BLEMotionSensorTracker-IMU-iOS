@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8B87AB4D27EEC1C500BA8613 /* OnPressButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B87AB4C27EEC1C500BA8613 /* OnPressButtonModifier.swift */; };
-		8B8E8EFF27D8E26B0002CECE /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */; };
 		8B904B9327DB0A3500DD60D3 /* PositionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B904B9227DB0A3500DD60D3 /* PositionData.swift */; };
 		8B904B9527DB110600DD60D3 /* CaptureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B904B9427DB110600DD60D3 /* CaptureType.swift */; };
 		8B904B9727DB116300DD60D3 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B904B9627DB116300DD60D3 /* Snapshot.swift */; };
@@ -56,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B8E8EFF27D8E26B0002CECE /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,7 +152,6 @@
 			);
 			name = MovementTracker;
 			packageProductDependencies = (
-				8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */,
 			);
 			productName = MovementTracker;
 			productReference = 8BA6937427D59B3500F2F781 /* MovementTracker.app */;
@@ -185,7 +182,6 @@
 			);
 			mainGroup = 8BA6936B27D59B3500F2F781;
 			packageReferences = (
-				8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = 8BA6937527D59B3500F2F781 /* Products */;
 			projectDirPath = "";
@@ -435,25 +431,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/willdale/SwiftUICharts.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8B8E8EFE27D8E26B0002CECE /* SwiftUICharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8B8E8EFD27D8E26B0002CECE /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
-			productName = SwiftUICharts;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8BA6936C27D59B3500F2F781 /* Project object */;
 }
